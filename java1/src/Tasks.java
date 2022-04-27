@@ -213,7 +213,10 @@ public class Tasks {
 
     public static void initialiseStudentList() {
         try {
-            FileStorage.getInstance().readStudentDetailsFile();
+           List<Student>studentList =FileStorage.getInstance().readStudentDetailsFile();
+            for (Student student : studentList) {
+                StudentList.getInstance().addToStudentList(student);
+            }
         } catch (Exception exception) {
             System.out.println("File can't be read");
         }

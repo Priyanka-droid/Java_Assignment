@@ -7,7 +7,6 @@ public class FileStorage {
     private File studentDetailsFile = null;
 
     private FileStorage() {
-        if (studentDetailsFile == null)
             studentDetailsFile = new File(FILE_NAME);
     }
 
@@ -22,15 +21,15 @@ public class FileStorage {
         return studentDetailsFile;
     }
 
-    public void readStudentDetailsFile() throws Exception {
+    public List<Student> readStudentDetailsFile() throws Exception {
 
         FileInputStream fileInputStream = new FileInputStream(FILE_NAME);
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
         List<Student> studentList = (List<Student>) objectInputStream.readObject();
-        for (Student student : studentList) {
-            StudentList.getInstance().addToStudentList(student);
-        }
         objectInputStream.close();
+        return studentList;
+
+
     }
 
     public void writeInStudentDetailsFile() throws Exception {
