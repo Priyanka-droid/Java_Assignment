@@ -205,7 +205,7 @@ public class Tasks {
             case "yes":
                 saveDetails();
                 System.out.println("Exiting");
-                break;
+                System.exit(0);
             default:
                 System.out.println("Exiting");
         }

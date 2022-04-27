@@ -49,7 +49,7 @@ public class CollegeAppStart {
                     break;
                 case EXIT:
                     Tasks.exit();
-                    break outer;
+                    System.exit(0);
             }
 
         } while (true);

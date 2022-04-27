@@ -1,4 +1,5 @@
 import java.util.Collections;
+import java.util.Comparator;
 
 public class SortDetails {
     public static void sortStudentList(int sortParameter, int sortOrder) {
@@ -10,68 +11,52 @@ public class SortDetails {
 
         switch (sortParameter) {
             case FULL_NAME:
-                if (sortOrder == 1) {
-                    sortOnFullNameIncreasing();
-                } else {
-                    sortOnFullNameDecreasing();
-                }
+                Collections.sort(StudentList.getInstance().getStudentList(), new SortOnFullName(sortOrder));
                 break;
             case ROLL_NUMBER:
-                if (sortOrder == 1) {
-                    sortOnRollIncreasing();
-                } else {
-                    sortOnRollDecreasing();
-                }
+                Collections.sort(StudentList.getInstance().getStudentList(), new SortOnRoll(sortOrder));
                 break;
             case AGE:
-                if (sortOrder == 1) {
-                    sortOnAgeIncreasing();
-                } else {
-                    sortOnAgeDecreasing();
-                }
+                Collections.sort(StudentList.getInstance().getStudentList(), new SortOnAge(sortOrder));
                 break;
             case ADDRESS:
-                if (sortOrder == 1) {
-                    sortOnAddressIncreasing();
-                } else {
-                    sortOnAddressDecreasing();
-                }
+                Collections.sort(StudentList.getInstance().getStudentList(), new SortOnAddress(sortOrder));
                 break;
         }
 
 
     }
+}
 
-    private static void sortOnFullNameIncreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentFirst.getFullName().compareTo(studentSecond.getFullName()));
+class SortOnFullName implements Comparator<Student> {
+    int order;
+    SortOnFullName(int order){this.order=order;};
+    public int compare(Student a, Student b)
+    {
+        return order==1? a.getFullName().compareTo(b.getFullName()):b.getFullName().compareTo(a.getFullName());
     }
-
-    private static void sortOnFullNameDecreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentSecond.getFullName().compareTo(studentFirst.getFullName()));
+}
+class SortOnRoll implements Comparator<Student> {
+    int order;
+    SortOnRoll(int order){this.order=order;};
+    public int compare(Student a, Student b)
+    {
+      return   order==1?a.getRollNumber() - b.getRollNumber(): b.getRollNumber()-a.getRollNumber();
     }
-
-    private static void sortOnRollIncreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentFirst.getRollNumber() - studentSecond.getRollNumber());
+}
+class SortOnAge implements Comparator<Student> {
+    int order;
+    SortOnAge(int order){this.order=order;};
+    public int compare(Student a, Student b)
+    {
+        return order==1? a.getAge()-b.getAge():b.getAge()-a.getAge();
     }
-
-    private static void sortOnRollDecreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentSecond.getRollNumber() - studentFirst.getRollNumber());
+}
+class SortOnAddress implements Comparator<Student> {
+    int order;
+    SortOnAddress(int order){this.order=order;};
+    public int compare(Student a, Student b)
+    {
+        return order==1? a.getAddress().compareTo(b.getAddress()):b.getAddress().compareTo(a.getAddress());
     }
-
-    private static void sortOnAgeIncreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentFirst.getAge() - studentSecond.getAge());
-    }
-
-    private static void sortOnAgeDecreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentSecond.getAge() - studentFirst.getAge());
-    }
-
-    private static void sortOnAddressIncreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentFirst.getAddress().compareTo(studentSecond.getAddress()));
-    }
-
-    private static void sortOnAddressDecreasing() {
-        Collections.sort(StudentList.getInstance().getStudentList(), (studentFirst, studentSecond) -> studentSecond.getAddress().compareTo(studentSecond.getAddress()));
-    }
-
 }
